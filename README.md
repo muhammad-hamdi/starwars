@@ -1,6 +1,6 @@
 # starwars
 
-A new Flutter project.
+A mobile App for StarWars Movies encyclopedia, using [SWAPI](https://swapi.co/).
 
 ## Getting Started
 
