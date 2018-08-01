@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:starwars/components/app_bar.dart';
+import 'package:starwars/components/characters_list.dart';
 
 void main() => runApp(new StarWarsApp());
 
@@ -7,10 +9,7 @@ class StarWarsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Star Wars',
-      theme: new ThemeData(
-        primarySwatch: Colors.black,
-      ),
-      home: new HomePage(title: 'Flutter Demo Home Page'),
+      home: new HomePage(title: 'Star Wars'),
     );
   }
 }
@@ -25,38 +24,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
-      ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
+      body: new Column(
+        children: <Widget>[
+          new StarWarsAppBar(widget.title),
+          new CharacterListPage([{
+            "name": "Luke Skywalker",
+            "height": "172",
+            "mass": "77",
+          },
+          {
+            "name": "C-3PO",
+            "height": "167",
+            "mass": "75",
+          }]),
+        ],
       ),
     );
   }
