@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:starwars/components/app_bar.dart';
 import 'package:starwars/components/characters_list.dart';
+import 'package:starwars/services/character_service.dart';
 
 void main() => runApp(new StarWarsApp());
 
@@ -8,6 +9,7 @@ class StarWarsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Star Wars',
       home: new HomePage(title: 'Star Wars'),
     );
@@ -30,16 +32,20 @@ class _HomePageState extends State<HomePage> {
       body: new Column(
         children: <Widget>[
           new StarWarsAppBar(widget.title),
-          new CharacterListPage([{
-            "name": "Luke Skywalker",
-            "height": "172",
-            "mass": "77",
-          },
-          {
-            "name": "C-3PO",
-            "height": "167",
-            "mass": "75",
-          }]),
+          new FutureBuilder(
+            future: CharacterService.all(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return new CharacterListPage(snapshot.data['results']);
+              } else if (snapshot.hasError) {
+                return new Text("${snapshot.error}");
+              }
+              return new Center(
+                  heightFactor: 15.0,
+                  child: new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation(Colors.black54),)
+              );
+            },
+          )
         ],
       ),
     );

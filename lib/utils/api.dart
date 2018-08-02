@@ -1,3 +1,3 @@
 class API {
-  static const BASE_URL = 'https://swapi.co/api/';
+  static const BASE_URL = 'https://swapi.co/api';
 }
